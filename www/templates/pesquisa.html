@@ -1,21 +1,22 @@
 <ion-view title="Pesquisa" id="page2">
-
   <ion-nav-buttons side="secondary">
-    <button class="button button-icon icon ion-search" ng-click="showFilterBar()">
+    <button class="button button-icon icon ion-search" ng-click="showFilterBar()" >
     </button>
   </ion-nav-buttons>
 
-
   <ion-content padding="true">
+    <div class="item item-divider" align="center">
+    <h3 class="calm">Ultima atulização... </h3>
+    <h3 class="assertive"> {{dataAtual | date:'dd-M-yyyy H:mm'}}</h3>
+    </div>
 
-    <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
-    </ion-refresher>
+      <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()" spinner="bubbles">
+     </ion-refresher>
 
     <div class="list list-inset " id="pesquisa-list4" ng-repeat="item in confidentia | filter: search">
       <div class="item item-icon-right " id="pesquisa-list-item18" ng-click="PassaId(item.id)">
-        <i class="icon  ion-android-arrow-dropright assertive"></i>
-        <h3 class="calm">{{item.name}}</h3>
+          <i class="icon  ion-android-arrow-dropright assertive"></i>
+          <h3 class="calm">{{item.name}}</h3>
       </div>
-
   </ion-content>
 </ion-view>

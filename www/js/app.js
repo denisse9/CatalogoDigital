@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic','jett.ionic.filter.bar','ngCordova.plugins.nativeStorage','app.controllers', 'app.routes', 'app.directives','app.services',])
+angular.module('app', ['ionic','jett.ionic.filter.bar','app.controllers', 'app.routes', 'app.directives','app.services',])
 
 .config(function($ionicConfigProvider, $ionicFilterBarConfigProvider){
 

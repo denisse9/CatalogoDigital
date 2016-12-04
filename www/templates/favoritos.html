@@ -1,8 +1,8 @@
 <ion-view title="Favoritos" id="page3">
   <ion-content padding="true" class="has-header">
 
-    <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
-   </ion-refresher>
+    <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()" spinner="bubbles">
+    </ion-refresher>
 
     <div class="card" ng-repeat="item in favoritos">
       <div class="item item-divider calm item-icon-right" align="center">
@@ -19,5 +19,6 @@
             {{item.time | date:'dd-M-yyyy H:mm'}}
           </div>
         </div>
+          <p class="calm" align="center">Puxe para atualizar</p>
   </ion-content>
 </ion-view>

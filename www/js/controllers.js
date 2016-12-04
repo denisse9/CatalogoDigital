@@ -1,25 +1,29 @@
 angular.module('app.controllers', [])
 
-.controller('pesquisaCtrl', ['$scope','$stateParams','$state','$ionicFilterBar','$ionicPopup','Api',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('pesquisaCtrl', ['$scope', '$stateParams', '$state', '$ionicFilterBar', '$ionicPopup', 'Api',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $state, $ionicFilterBar,$ionicPopup,Api) {
+function ($scope, $stateParams, $state, $ionicFilterBar, $ionicPopup, Api) {
 
     // passa informação para o scope
     Api.getData().then(function(data) {
-      if(data !== null) {
-        $scope.confidentia = data;
-        console.log("Usar http");
-      }else{
-          $scope.confidentia = JSON.parse(window.localStorage.getItem("Api"));
-          console.log("Usar LocalStorage");
-      }
+        $scope.confidentia = data.dataHttp;
+        $scope.dataAtual = data.dataAtual;
+        console.log("Informação da Api...");
   })
 
-  $scope.doRefresh =function() {
-    $scope.confidentia = JSON.parse(window.localStorage.getItem("Api"));
+$scope.doRefresh =function() {
+    Api.getData().then(function(data) {
+      if(data !== null) {
+        $scope.confidentia = data.dataHttp;
+        $scope.dataAtual = data.dataAtual;
+        console.log("Informação da Api...");
+      }else{
+          $scope.confidentia = window.localStorage.getItem("dataHttp");
+          console.log("Atuliza do ficheiro localStorage.... ");
+      }
+  })
     $scope.$broadcast("scroll.refreshComplete");
-    console.log(Api);
   };
 
 
@@ -99,10 +103,42 @@ $scope.doRefresh = function() {
 
 }])
 
-.controller('atualizarCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('atualizarCtrl', ['$scope', '$stateParams','$interval', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $interval) {
+
+  $scope.progressval = 0;
+  $scope.stopinterval = null;
+
+
+  function startprogress()
+  {
+    $scope.progressval = 0;
+
+    if ($scope.stopinterval)
+    {
+      $interval.cancel($scope.stopinterval);
+    }
+
+    $scope.stopinterval = $interval(function() {
+      $scope.progressval = $scope.progressval + 1;
+      if( $scope.progressval >= 100 ) {
+        $interval.cancel($scope.stopinterval);
+        //$state.go('second');
+        return;
+      }
+    }, 100);
+  }
+  startprogress();
+
+
+  $scope.doRefresh = function()
+  {
+    startprogress();
+    $scope.$broadcast("scroll.refreshComplete");
+  }
+
 
 
 }])
@@ -170,21 +206,9 @@ $scope.showFilterBar = function () {
 
 //passa informação para a pagina com id
   Api.getDataById().then(function(data) {
-    if(data !== null) {
-      $scope.confidentia = data.games;
-        console.log("Usar Http");
-      }else {
-        $scope.confidentia = JSON.parse(window.localStorage.getItem("ApiDet"));
-        console.log("Usar LocalStorage");
-      }
-
+      $scope.confidentia = data.dataHttpDet;
+      console.log("Usar Http para detalhes...");
   });
-
- // atualiza com informação guardada do ficheiro JSON-ApiDet
-  $scope.doRefresh =function() {
-    $scope.confidentia = JSON.parse(window.localStorage.getItem("ApiDet"));
-    $scope.$broadcast("scroll.refreshComplete");
-  };
 
 
 // adiciona e remove favoritos no ficheiro JSON-Favoritos
