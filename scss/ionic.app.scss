@@ -5,9 +5,7 @@ $SIDEMENU_TRANSPARENCY: rgba(255,255,255,0.4);
 $input-color-placeholder: #fff;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import
-"../www/lib/ionic/scss",
-"../www/lib/ionic/ionic-filter-bar/dist/",
-"../www/lib/ionic-filter-bar/scss/";
+"../www/lib/ionic/scss";
 
 .side-menu-item {
 	background: none;

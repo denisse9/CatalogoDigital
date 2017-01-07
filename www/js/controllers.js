@@ -10,29 +10,28 @@ function ($scope, $stateParams, $state, $ionicFilterBar, $ionicPopup, Api) {
         $scope.confidentia = data.dataHttp;
         $scope.dataAtual = data.dataAtual;
         console.log("Informação da Api...");
-  })
+    })
 
-$scope.doRefresh =function() {
-    Api.getData().then(function(data) {
-      if(data !== null) {
-        $scope.confidentia = data.dataHttp;
-        $scope.dataAtual = data.dataAtual;
-        console.log("Informação da Api...");
-      }else{
+    $scope.doRefresh =function() {
+      Api.getData().then(function(data) {
+        if(data !== null) {
+          $scope.confidentia = data.dataHttp;
+          $scope.dataAtual = data.dataAtual;
+          console.log("Informação da Api...");
+        }else{
           $scope.confidentia = window.localStorage.getItem("dataHttp");
           console.log("Atuliza do ficheiro localStorage.... ");
-      }
-  })
-    $scope.$broadcast("scroll.refreshComplete");
-  };
+        }
+    })
+      $scope.$broadcast("scroll.refreshComplete");
+    };
 
 
-  // passa id para a Api e muda para pagina detalhes
-  $scope.PassaId = function(id){
-    Api.setLabId(id);
-    $state.go('page1.detalhes');
-  }
-
+    // passa id para a Api e muda para pagina detalhes
+    $scope.PassaId = function(id){
+      Api.setLabId(id);
+      $state.go('page1.detalhes');
+    }
 
       //barra de pesquisa
     var filterBarInstance;
@@ -112,12 +111,11 @@ function ($scope, $stateParams, $interval) {
   $scope.stopinterval = null;
 
 
-  function startprogress()
-  {
+  function startprogress(){
+
     $scope.progressval = 0;
 
-    if ($scope.stopinterval)
-    {
+    if ($scope.stopinterval){
       $interval.cancel($scope.stopinterval);
     }
 
@@ -133,8 +131,7 @@ function ($scope, $stateParams, $interval) {
   startprogress();
 
 
-  $scope.doRefresh = function()
-  {
+  $scope.doRefresh = function(){
     startprogress();
     $scope.$broadcast("scroll.refreshComplete");
   }
