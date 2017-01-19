@@ -1,51 +1,46 @@
 angular.module('app.controllers', [])
 
-.controller('pesquisaCtrl', ['$scope', '$stateParams', '$state', '$ionicFilterBar', '$ionicPopup', 'Api',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('pesquisaCtrl', ['$scope','$ionicScrollDelegate','$rootScope','$stateParams', '$state', '$ionicPopup','Api',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $state, $ionicFilterBar, $ionicPopup, Api) {
+function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionicPopup, Api) {
+
+  $rootScope.slideHeader = false;
+  $rootScope.pixelLimit = 100;
 
     // passa informação para o scope
     Api.getData().then(function(data) {
         $scope.confidentia = data.dataHttp;
         $scope.dataAtual = data.dataAtual;
         console.log("Informação da Api...");
-    })
+  })
 
-    $scope.doRefresh =function() {
-      Api.getData().then(function(data) {
-        if(data !== null) {
-          $scope.confidentia = data.dataHttp;
-          $scope.dataAtual = data.dataAtual;
-          console.log("Informação da Api...");
-        }else{
+$scope.doRefresh =function() {
+    Api.getData().then(function(data) {
+      if(data !== null) {
+        $scope.confidentia = data.dataHttp;
+        $scope.dataAtual = data.dataAtual;
+        console.log("Informação da Api...");
+      }else{
           $scope.confidentia = window.localStorage.getItem("dataHttp");
           console.log("Atuliza do ficheiro localStorage.... ");
-        }
-    })
-      $scope.$broadcast("scroll.refreshComplete");
-    };
+      }
+  })
+    $scope.$broadcast("scroll.refreshComplete");
+  };
 
 
-    // passa id para a Api e muda para pagina detalhes
-    $scope.PassaId = function(id){
-      Api.setLabId(id);
-      $state.go('page1.detalhes');
-    }
+  // passa id para a Api e muda para pagina detalhes
+  $scope.PassaId = function(id){
+    Api.setLabId(id);
+    $state.go('page1.detalhes');
+  }
 
-      //barra de pesquisa
-    var filterBarInstance;
-    $scope.showFilterBar = function () {
-        filterBarInstance = $ionicFilterBar.show({
-          items: $scope.confidentia,
-          update: function (filteredItems, filterText) {
-            $scope.confidentia = filteredItems;
-            if (filterText) {
-              console.log(filterText);
-            }
-          }
-        });
-      };
+$scope.apagar = function () {
+  $scope.search = '';
+}
+
+
 }])
 
 .controller('favoritosCtrl', ['$scope', '$stateParams','$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -111,11 +106,12 @@ function ($scope, $stateParams, $interval) {
   $scope.stopinterval = null;
 
 
-  function startprogress(){
-
+  function startprogress()
+  {
     $scope.progressval = 0;
 
-    if ($scope.stopinterval){
+    if ($scope.stopinterval)
+    {
       $interval.cancel($scope.stopinterval);
     }
 
@@ -131,7 +127,8 @@ function ($scope, $stateParams, $interval) {
   startprogress();
 
 
-  $scope.doRefresh = function(){
+  $scope.doRefresh = function()
+  {
     startprogress();
     $scope.$broadcast("scroll.refreshComplete");
   }
@@ -180,26 +177,14 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('detalhesCtrl', ['$scope', '$stateParams','$ionicFilterBar','$ionicPopup','Api',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('detalhesCtrl', ['$scope', '$stateParams','$ionicPopup','Api',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicFilterBar, $ionicPopup,Api) {
+function ($scope, $stateParams, $ionicPopup, Api) {
 
-
-
-  //barra de pesquisa
-var filterBarInstance;
-$scope.showFilterBar = function () {
-    filterBarInstance = $ionicFilterBar.show({
-      items: $scope.confidentia,
-      update: function (filteredItems, filterText) {
-        $scope.confidentia = filteredItems;
-        if (filterText) {
-          console.log(filterText);
-        }
-      }
-    });
-  };
+  $scope.apagar = function () {
+    $scope.search = '';
+  }
 
 //passa informação para a pagina com id
   Api.getDataById().then(function(data) {

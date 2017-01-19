@@ -1,24 +1,29 @@
 <ion-view title="Favoritos" id="page3">
-  <ion-content padding="true" class="has-header">
 
-    <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()" spinner="bubbles">
-    </ion-refresher>
+<ion-content padding="true" class="has-header">
 
-    <div class="card" ng-repeat="item in favoritos">
-      <div class="item item-divider calm item-icon-right" align="center">
-          {{item.location | uppercase}}
-          <i ng-class="!item.added ? 'icon ion-ios-star assertive' : 'icon ion-ios-star-outline '" ng-click="GuardaFavorito(item)"></i>
-        </div>
-          <div class="item item-text-wrap">
-            <h5 class="assertive"align="right" class="">{{item.team1Score}}</h5>
-            <p>{{item.team1 | uppercase}}</p>
-              <h5 class="assertive" align="right" class="">{{item.team2Score}}</h5>
-            <p>{{item.team2 | uppercase}}</p>
-          </div>
-          <div class="item item-divider" align="right">
-            {{item.time | date:'dd-M-yyyy H:mm'}}
-          </div>
-        </div>
-          <p class="calm" align="center">Puxe para atualizar</p>
-  </ion-content>
+<ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()" spinner="bubbles">
+</ion-refresher>
+
+  <div class="card" ng-repeat="item in favoritos">
+    <div class="item item-divider calm item-icon-right" align="center">
+      {{item.location | uppercase}}
+      <i ng-class="!item.added ? 'icon ion-ios-star assertive' : 'icon ion-ios-star-outline '" ng-click="GuardaFavorito(item)"></i>
+    </div>
+    <div class="item item-text-wrap">
+      <h5 class="assertive"align="right" class="">{{item.team1Score}}</h5>
+      <p>{{item.team1 | uppercase}}</p>
+      <h5 class="assertive" align="right" class="">{{item.team2Score}}</h5>
+      <p>{{item.team2 | uppercase}}</p>
+    </div>
+
+    <div class="item item-divider" align="right">
+      {{item.time | date:'dd-M-yyyy H:mm'}}
+    </div>
+  </div>
+
+  <p class="calm" align="center">Puxe para atualizar</p>
+
+</ion-content>
+
 </ion-view>

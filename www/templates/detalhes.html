@@ -1,13 +1,20 @@
 <ion-view title="Detalhes" id="page9">
 
-  <ion-nav-buttons side="secondary">
-    <button class="button button-icon icon ion-search" ng-click="showFilterBar()">
+
+
+  <div class="bar bar-subheader item-input-inset ">
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+      <input type="search" placeholder="Pesquisa" ng-model="search">
+    </label>
+    <button class="button button-clear" ng-click="apagar()">
+      <h4 class="stable">Apagar</h4>
     </button>
-  </ion-nav-buttons>
+  </div>
 
+  <ion-content scroll-sista="header-tabs" class="has-subheader" padding="true" >
 
-  <ion-content padding="true" class="has-header">
-    <div class="card " ng-repeat="item in confidentia | orderBy:'-id'">
+    <div class="card " ng-repeat="item in confidentia | orderBy:'-id' | filter: search">
       <div class="item item-divider calm item-icon-right" align="center">
           {{item.location | uppercase}}
           <i ng-class="!item.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star assertive'" ng-click="GuardaFavorito(item)")></i>
@@ -19,8 +26,9 @@
             <p>{{item.team2 | uppercase}}</p>
           </div>
           <div class="item item-divider" align="right">
-           {{item.time | date:'dd-M-yyyy H:mm'}}
+            {{item.time | date:'dd-M-yyyy H:mm'}}
           </div>
         </div>
+
   </ion-content>
 </ion-view>

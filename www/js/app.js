@@ -5,20 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic','jett.ionic.filter.bar','app.controllers', 'app.routes', 'app.directives','app.services',])
+angular.module('app', ['ionic','jett.ionic.scroll.sista','app.controllers', 'app.routes', 'app.directives','app.services',])
 
-.config(function($ionicConfigProvider, $ionicFilterBarConfigProvider){
+.config(function($ionicConfigProvider){
 
-  $ionicFilterBarConfigProvider.theme('calm');
-  $ionicFilterBarConfigProvider.placeholder('Pesquisa');
-
- //Configurações possiveis do menu da pesquisa
-    /*
-    $ionicFilterBarConfigProvider.clear('ion-close');
-    $ionicFilterBarConfigProvider.search('ion-search');
-    $ionicFilterBarConfigProvider.backdrop(false);
-    $ionicFilterBarConfigProvider.transition('vertical');
-    */
 
 })
 
