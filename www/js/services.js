@@ -84,22 +84,33 @@ function getGruposDet() {
   var deferred =$q.defer();
 
   $http.get(url2 + grupoId + '/analises').success(function(data, status){
+
     var gruposDet = {'gruposDet': data, 'dataAtual': new Date()};
+
     window.localStorage.setItem("gruposDet", JSON.stringify(gruposDet, status));
+
     $ionicLoading.hide();
     
     deferred.resolve(gruposDet);
+
     console.log("Serviço Http detalhes Com Sucesso....");
+
   }).error(function(data){
+
       $ionicLoading.hide();
      
       // An alert dialog
       $ionicPopup.alert({ title: 'Erro!!!', template: 'Verifique a ligação à Internet.'});
+
         if(window.localStorage.getItem("gruposDet") !== undefined) {
+
           data = JSON.parse(window.localStorage.getItem("gruposDet"));
+
           }
         //deferred.reject(data); //para regeitar a data usar sem LocalStorage
+
         deferred.resolve(data);
+
         console.log("Serviço Http detalhes Com Erro....");
   });
       return deferred.promise;
@@ -112,22 +123,34 @@ function getAnalisesDet() {
   var deferred =$q.defer();
 
   $http.get(url + analiseId + '/info').success(function(data, status){
+
     var analiseDet = {'analiseDet': data, 'dataAtual': new Date()};
+
     window.localStorage.setItem("analiseDet", JSON.stringify(analiseDet, status));
+
     $ionicLoading.hide();
     
     deferred.resolve(analiseDet);
+
     console.log("Serviço Http detalhes Com Sucesso....");
+
   }).error(function(data){
+
       $ionicLoading.hide();
      
       // An alert dialog
       $ionicPopup.alert({ title: 'Erro!!!', template: 'Verifique a ligação à Internet.'});
+
         if(window.localStorage.getItem("analiseDet") !== undefined) {
+
           data = JSON.parse(window.localStorage.getItem("analiseDet"));
+
           }
+
         //deferred.reject(data); //para regeitar a data usar sem LocalStorage
+
         deferred.resolve(data);
+
         console.log("Serviço Http detalhes Com Erro....");
   });
       return deferred.promise;

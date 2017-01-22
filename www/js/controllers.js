@@ -25,7 +25,7 @@ function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionic
    
 
  $scope.doRefresh =function() {
-    $scope.show = true;
+    
     Api.getGrupos().then(function(data) {
 
       if(data !== null) {
@@ -38,6 +38,7 @@ function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionic
           console.log("Atuliza do ficheiro localStorage.... ");
       }
     })
+      $scope.show = true;
       $scope.$broadcast("scroll.refreshComplete");
     };
 
@@ -223,19 +224,14 @@ if ($rootScope.show == true) {
   //passa informação para a pagina com id
   Api.getGruposDet().then(function(data) {
       $scope.grupos = data.gruposDet;
-      console.log("Usar Http para detalhes...");
   });
   
 }else{
   //passa informação para a pagina com id
   Api.getAnalisesDet().then(function(data) {
-      $scope.analises = data.analisesDet;
-      console.log("Usar Http para detalhes...");
+      $scope.analises = data.analiseDet;
   });
 }
-
-
-
 
 
 
