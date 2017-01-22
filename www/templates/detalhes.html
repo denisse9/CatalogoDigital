@@ -12,10 +12,17 @@
     </button>
   </div>
 
-  <ion-content  class="has-subheader" padding="true">
+  <ion-content  class="has-subheader">
 
-  <div class="list">
-      <div class="item item-icon-left item-text-wrap" ng-repeat="item in confidentia | orderBy:'-designacao' | filter: search" ng-click="Go()">
+  <div class="list" ng-show="true">
+      <div class="item item-icon-left item-text-wrap" ng-repeat="item in grupos | orderBy:'-designacao' | filter: search" ng-click="Go()">
+      <i class="calm" ng-class="!item.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star energized'" ng-click="GuardaFavorito(item)"></i>
+       <h3>{{item.designacao}}</h3><span class="badge badge-balanced">{{item.codigo}}</span>
+      </div>
+    </div>
+
+    <div class="list" ng-show="false">
+      <div class="item item-icon-left item-text-wrap" ng-repeat="item in analises | filter: { codigo: analiseDet }"  ng-click="Go()">
       <i class="calm" ng-class="!item.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star energized'" ng-click="GuardaFavorito(item)"></i>
        <h3>{{item.designacao}}</h3><span class="badge badge-balanced">{{item.codigo}}</span>
       </div>

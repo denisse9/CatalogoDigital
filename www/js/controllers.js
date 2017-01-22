@@ -5,34 +5,36 @@ angular.module('app.controllers', [])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionicPopup, Api) {
 
-  $scope.show = true;
+ 
 
    $scope.onSearchChange = function () {
      $scope.show = false;
 }
 
     // passa informação para o scope
-    Api.getData().then(function(data) {
-        $scope.confidentia = data.dataHttp;
+    Api.getGrupos().then(function(data) {
+        $scope.grupos = data.gruposData;
         $scope.dataAtual = data.dataAtual;
         console.log("Informação da Api...");
   })
 
-      Api.getAllData().then(function(data){
-        $scope.pesquisa = data.dataAllData;
+      Api.getAnalises().then(function(data){
+        $scope.analises = data.dataAnalises;
       })
 
    
 
  $scope.doRefresh =function() {
-    Api.getData().then(function(data) {
+    $scope.show = true;
+    Api.getGrupos().then(function(data) {
+
       if(data !== null) {
-        $scope.confidentia = data.dataHttp;
+        $scope.grupos = data.gruposData;
         $scope.dataAtual = data.dataAtual;
         console.log("Informação da Api...");
       }else{
-          $scope.confidentia = window.localStorage.getItem("dataHttp");
-          $scope.pesquisa = window.localStorage.getItem("dataAllData");
+          $scope.grupos = window.localStorage.getItem("gruposData");
+          $scope.analises = window.localStorage.getItem("dataAnalises");
           console.log("Atuliza do ficheiro localStorage.... ");
       }
     })
@@ -42,9 +44,20 @@ function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionic
 
   // passa id para a Api e muda para pagina detalhes
   $scope.PassaId = function(id){
-    Api.setLabId(id);
+    Api.grupoId(id);
+    $rootScope.show = true;
     $state.go('page1.detalhes');
   }
+
+// passa id para a Api e muda para pagina detalhes
+  $scope.PassaId2 = function(id){
+    Api.analiseId(id);
+    $rootScope.show = false;
+    $state.go('page1.detalhes');
+  }
+  
+
+
 
 $scope.apagar = function () {
   $scope.search ='';
@@ -193,45 +206,38 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope,$state, $stateParams, Api) {
 
-   Api.getDataById().then(function(data) {
-      $scope.confidentia = data.dataHttpDet;
-      $scope.grupo=data.dataHttpDet.grupo;
-      console.log("Usar Http para detalhes222..." + data.grupo);
-  });
-
-
-    
-
 }])
 
 
-.controller('detalhesCtrl', ['$scope','$state','$stateParams','$ionicPopup','Api',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('detalhesCtrl', ['$scope','$rootScope','$state','$stateParams','$ionicPopup','Api',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $stateParams, $ionicPopup, Api) {
+function ($scope, $rootScope, $state, $stateParams, $ionicPopup, Api) {
+
 
   $scope.apagar = function () {
     $scope.search = '';
   }
 
-//passa informação para a pagina com id
-  Api.getDataById().then(function(data) {
-      $scope.confidentia = data.dataHttpDet;
+if ($rootScope.show == true) {
+  //passa informação para a pagina com id
+  Api.getGruposDet().then(function(data) {
+      $scope.grupos = data.gruposDet;
       console.log("Usar Http para detalhes...");
   });
+  
+}else{
+  //passa informação para a pagina com id
+  Api.getAnalisesDet().then(function(data) {
+      $scope.analises = data.analisesDet;
+      console.log("Usar Http para detalhes...");
+  });
+}
 
 
-/*$scope.Go = function(codigo){
-  Api.getAid
-  $state.go('detalhes2');
-}*/
 
 
-// passa id para a Api e muda para pagina detalhes
-  $scope.Go = function(codigo){
-    Api.setLabId(codigo);
-    $state.go('page1.detalhes2');
-  }
+
 
 // adiciona e remove favoritos no ficheiro JSON-Favoritos
 $scope.GuardaFavorito = function(item) {
