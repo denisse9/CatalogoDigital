@@ -71,6 +71,12 @@ angular.module('app.routes', [])
     controller: 'centrosDeColheitaCtrl'
   })
 
+ /*.state('detalhes2', {
+    url: '/page12',
+    templateUrl: 'templates/detalhes2.html',
+    controller: 'detalhes2Ctrl'
+  })*/
+
   .state('page1.detalhes', {
     url: '/page9',
     views: {
@@ -80,6 +86,15 @@ angular.module('app.routes', [])
     }}
   })
 
+  .state('page1.detalhes2', {
+    url: '/page12',
+    views: {
+      'tabs': {
+        templateUrl: 'templates/detalhes2.html',
+        controller: 'detalhes2Ctrl'
+    }}
+  })
+      
   .state('login', {
     url: '/page11',
     templateUrl: 'templates/login.html',
