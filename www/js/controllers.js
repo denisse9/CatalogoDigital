@@ -5,29 +5,23 @@ angular.module('app.controllers', [])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionicPopup, Api) {
 
- 
+  $scope.onSearchChange = function () {
+    $scope.show = false;
+  }
 
-   $scope.onSearchChange = function () {
-     $scope.show = false;
-}
-
-    // passa informação para o scope
-    Api.getGrupos().then(function(data) {
-        $scope.grupos = data.gruposData;
-        $scope.dataAtual = data.dataAtual;
-        console.log("Informação da Api...");
+// passa informação para o scope
+  Api.getGrupos().then(function(data) {
+      $scope.grupos = data.gruposData;
+      $scope.dataAtual = data.dataAtual;
+      console.log("Informação da Api...");
   })
 
-      Api.getAnalises().then(function(data){
-        $scope.analises = data.dataAnalises;
-      })
+  Api.getAnalises().then(function(data){
+      $scope.analises = data.dataAnalises;
+    })
 
-   
-
- $scope.doRefresh =function() {
-    
+ $scope.doRefresh =function() {    
     Api.getGrupos().then(function(data) {
-
       if(data !== null) {
         $scope.grupos = data.gruposData;
         $scope.dataAtual = data.dataAtual;
@@ -38,15 +32,14 @@ function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionic
           console.log("Atuliza do ficheiro localStorage.... ");
       }
     })
-      $scope.show = true;
       $scope.$broadcast("scroll.refreshComplete");
     };
 
-
-  // passa id para a Api e muda para pagina detalhes
+// passa id para a Api e muda para pagina detalhes
   $scope.PassaId = function(id){
     Api.grupoId(id);
     $rootScope.show = true;
+    $rootScope.grupo = id;
     $state.go('page1.detalhes');
   }
 
@@ -57,14 +50,10 @@ function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionic
     $state.go('page1.detalhes');
   }
   
-
-
-
 $scope.apagar = function () {
   $scope.search ='';
   $scope.show = true;
 }
-
 
 }])
 
@@ -202,55 +191,95 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('detalhes2Ctrl', ['$scope','$state', '$stateParams','Api', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope,$state, $stateParams, Api) {
-
-}])
-
-
 .controller('detalhesCtrl', ['$scope','$rootScope','$state','$stateParams','$ionicPopup','Api',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $rootScope, $state, $stateParams, $ionicPopup, Api) {
+
+var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
 
 
   $scope.apagar = function () {
     $scope.search = '';
   }
 
-if ($rootScope.show == true) {
+if ($scope.show == true) {
   //passa informação para a pagina com id
   Api.getGruposDet().then(function(data) {
-      $scope.grupos = data.gruposDet;
+      $scope.grupos = data.gruposDet;   
   });
+   $scope.title = 'Grupo Cientifíco';
+  
   
 }else{
   //passa informação para a pagina com id
   Api.getAnalisesDet().then(function(data) {
-      $scope.analises = data.analiseDet;
+      $scope.analises = data.analiseDet;    
   });
+    
+  $scope.title ='Analise Clinica';
 }
 
 
 
 // adiciona e remove favoritos no ficheiro JSON-Favoritos
-$scope.GuardaFavorito = function(item) {
-  var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
+$scope.GuardaFavorito = function(analises) {
 
-  if (!item.added) {
-    favoritos.push(item);
-    window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
-    console.log("Adicionei artigo", favoritos);
-  } else {
-    var index = favoritos.indexOf(item);
-    favoritos.splice(index, 1);
-    window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
-    console.log("Removi artigo", favoritos);
-  }
-  item.added = !item.added;
+var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
+
+ if (!analises.added) {
+     favoritos.push(analises);
+      window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
+      console.log("Adicionei artigo", analises);  
+
+      
+    } else {
+      var index = favoritos.indexOf(analises);
+      favoritos.splice(index, 1);
+      window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
+      console.log("Removi artigo", favoritos);
+    }
+    analises.added = !analises.added;
 }
+
+// passa id para a Api e muda para pagina detalhes
+  $scope.PassaId2 = function(id){
+    Api.analiseId(id);
+      $scope.show = false;
+    Api.getAnalisesDet().then(function(data) {
+      $scope.analises = data.analiseDet;
+    });
+    /*    var found = false;
+      for(var i = 0; i < favoritos.length; i++) {
+          if (favoritos[i] == $scope.analises
+          ) {
+            found = true;
+            
+            !analises.added
+            //$ionicPopup.alert({ title: 'Erro!!!', template: 'Esta Analise já foi adicionada'});           
+            break;
+          }
+        }
+        console.log('teste ' + found);*/
+
+      $scope.title ='Analise Clinica';
+      $state.go('page1.detalhes');
+    }
+
+
+
+   /*   var found = false;
+      for(var i = 0; i < favoritos.length; i++) {
+          if (favoritos[i].codigo == $scope.analises) {
+            found = true;
+            
+            !analises.added
+            //$ionicPopup.alert({ title: 'Erro!!!', template: 'Esta Analise já foi adicionada'});           
+            break;
+          }
+        }
+        console.log('teste ' + found);*/
+
 
 }])
 

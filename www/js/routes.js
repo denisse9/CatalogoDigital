@@ -14,7 +14,6 @@ angular.module('app.routes', [])
       abstract:true
     })
 
-
 .state('page1.pesquisa', {
     url: '/page2',
     views: {
@@ -24,6 +23,16 @@ angular.module('app.routes', [])
       }
     }
   })
+
+.state('page1.detalhes', {
+    url: '/page9',
+    views: {
+      'tab1': {
+        templateUrl: 'templates/detalhes.html',
+        controller: 'detalhesCtrl'
+    }}
+  })
+
 .state('page1.favoritos', {
     url: '/page3',
     views: {
@@ -33,6 +42,7 @@ angular.module('app.routes', [])
       }
     }
   })
+
 .state('page1.atualizar', {
     url: '/page4',
     views: {
@@ -43,7 +53,7 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('page1.perfil', {
+.state('page1.perfil', {
     url: '/page6',
     views: {
       'tab4': {
@@ -53,56 +63,30 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('sobre', {
+.state('sobre', {
     url: '/page7',
     templateUrl: 'templates/sobre.html',
     controller: 'sobreCtrl'
   })
 
-  .state('laboratorio', {
+.state('laboratorio', {
     url: '/page8',
     templateUrl: 'templates/laboratorio.html',
     controller: 'laboratorioCtrl'
   })
 
-  .state('centrosDeColheita', {
+.state('centrosDeColheita', {
     url: '/page10',
     templateUrl: 'templates/centrosDeColheita.html',
     controller: 'centrosDeColheitaCtrl'
   })
-
- /*.state('detalhes2', {
-    url: '/page12',
-    templateUrl: 'templates/detalhes2.html',
-    controller: 'detalhes2Ctrl'
-  })*/
-
-  .state('page1.detalhes', {
-    url: '/page9',
-    views: {
-      'tab1': {
-        templateUrl: 'templates/detalhes.html',
-        controller: 'detalhesCtrl'
-    }}
-  })
-
-  .state('page1.detalhes2', {
-    url: '/page12',
-    views: {
-      'tabs': {
-        templateUrl: 'templates/detalhes2.html',
-        controller: 'detalhes2Ctrl'
-    }}
-  })
-      
-  .state('login', {
+   
+.state('login', {
     url: '/page11',
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
   })
 
 $urlRouterProvider.otherwise('page11')
-
-
 
 });
