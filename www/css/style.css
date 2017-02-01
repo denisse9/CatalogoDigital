@@ -1,8 +1,10 @@
 
-.h2 {
-    color: springgreen;
-    font-family: verdana;
-    font-size: 20%;
+p {
+    display: block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		color: slategrey;
+    white-space: pre;
+    margin: 1em 0;
 }
 
 /*-===========================.Pagina Perfil =====================-*/

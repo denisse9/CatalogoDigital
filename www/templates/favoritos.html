@@ -2,10 +2,7 @@
 
 <ion-content padding="true" class="has-header">
 
-  <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()" spinner="bubbles">
-  </ion-refresher>
-
-    <div class="card" ng-repeat="item in favoritos">
+    <!--div class="card" ng-repeat="item in favoritos">
       <div class="item item-icon-right item-text-wrap">
       <i ng-class="!item.added ? 'icon ion-ios-star energized' : 'icon ion-ios-star-outline '" ng-click="GuardaFavorito(item)"></i>      
        <span class="badge badge-balanced">{{item.codigo}}</span>
@@ -18,8 +15,27 @@
        <p>{{item.tempoExecucao}}</p>
        <p>{{item.qtColher}}</p>
       </div>
-    </div>
+    </div-->
+
+<div class="list card " ng-repeat="item in favoritos">
+  <div class="item item-avatar item-icon-right" ng-click="Mostra(show)">
+    <img src="img/logo.png">
+    <h2>{{item.designacao}}</h2>
+    <p>{{item.grupo}}</p>
+    <i ng-class="!item.added ? 'icon ion-ios-star energized' : 'icon ion-ios-star-outline '" ng-click="GuardaFavorito(item)"></i>  
+  </div>
+  
+  <div class="item item-body" ng-show="show">
+    <p>{{item.instrucaoColheita}}</p>
+     <p>{{item.instrucaoPreparacao}}</p>
+      <p>{{item.manualcolheitaDesignacao}}</p>
+      <p>{{item.produtoColher}}</p>
+      <p>
+        <a href="#" class="subdued">{{item.tempoExecucao}}</a>
+        <a href="#" class="subdued">{{item.qtColher}}</a>
+      </p>
+      </div>  
+      </div>
 
 </ion-content>
-
 </ion-view>
