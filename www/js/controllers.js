@@ -54,9 +54,8 @@ function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionic
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicPopup) {
 
-  $scope.show = false;
+$scope.show = false;
   
-
 // variavel dos favoritos 
 var fav = JSON.parse(window.localStorage.getItem("favoritos"))||[];
 
@@ -69,42 +68,44 @@ if (fav.length == 0) {
     console.log(fav);
   } else {
     $scope.favoritos = fav;
+    showDelete: false
     console.log(fav);
   }
 
-// adiciona e remove favoritos do ficheiro JSON-Favoritos
-  $scope.GuardaFavorito = function(item) {
-    var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
-    if (!item.added) {
-      var index = favoritos.indexOf(item);
+
+  $scope.edit = function(item) {
+    alert('Edit Item: ' + item.id);
+  };
+  $scope.share = function(item) {
+    alert('Share Item: ' + item.id);
+  };
+
+  // reordena as favoritos no scope
+  $scope.moveItem = function(item, fromIndex, toIndex) {
+    $scope.favoritos.splice(fromIndex, 1);
+    $scope.favoritos.splice(toIndex, 0, item);
+  };
+  
+  //remove os favoritos do scope e do localStorage
+  $scope.onItemDelete = function(item) {
+    
+    $scope.favoritos.splice($scope.favoritos.indexOf(item), 1);
+     var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
+     var index = favoritos.indexOf(item);
       favoritos.splice(index, 1);
       window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
+      $scope.show = false;
       console.log("Removi artigo", favoritos);
-    } else {
-      $scope.hide = true;
-      /*var fav = JSON.parse(window.localStorage.getItem("favoritos")) || [];
-      if (fav.length == 0) {
-        $ionicPopup.alert({
-          title: 'Informação...',
-          template: 'Ainda não adicionou analises aos favoritos!!!'
-        });
-        $scope.favoritos = JSON.parse(window.localStorage.getItem("favoritos"));
-        console.log(fav);
-      } else {
-        $scope.favoritos = JSON.parse(window.localStorage.getItem("favoritos"));
-        console.log(fav);
-      }*/
-    }
-    item.added = !item.added;
-  }
-
+  };
+  
 // mostra os detalhes das analises
   $scope.Mostra = function(show){
     $scope.show = !show;
   }
 
-/* atualiza os dados no tab favoritos
+// atualiza os dados no tab favoritos
 $scope.doRefresh = function() {
+  $scope.show = false;
   var fav = JSON.parse(window.localStorage.getItem("favoritos")) || [];
   if (fav.length == 0) {
     $ionicPopup.alert({
@@ -112,13 +113,16 @@ $scope.doRefresh = function() {
       template: 'Ainda não adicionou analises aos favoritos!!!'
     });
     $scope.favoritos = JSON.parse(window.localStorage.getItem("favoritos"));
+    $scope.show = false;
     console.log(fav);
+
   } else {
     $scope.favoritos = JSON.parse(window.localStorage.getItem("favoritos"));
+    $scope.show = false;
     console.log(fav);
   }
   $scope.$broadcast("scroll.refreshComplete");
-};*/
+};
 
 }])
 
