@@ -54,8 +54,8 @@ function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionic
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicPopup) {
 
-$scope.show = false;
-  
+ $scope.show=false;
+
 // variavel dos favoritos 
 var fav = JSON.parse(window.localStorage.getItem("favoritos"))||[];
 
@@ -68,7 +68,6 @@ if (fav.length == 0) {
     console.log(fav);
   } else {
     $scope.favoritos = fav;
-    showDelete: false
     console.log(fav);
   }
 
@@ -88,20 +87,16 @@ if (fav.length == 0) {
   
   //remove os favoritos do scope e do localStorage
   $scope.onItemDelete = function(item) {
-    
     $scope.favoritos.splice($scope.favoritos.indexOf(item), 1);
-     var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
-     var index = favoritos.indexOf(item);
-      favoritos.splice(index, 1);
-      window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
-      $scope.show = false;
-      console.log("Removi artigo", favoritos);
+    var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
+    var index = favoritos.indexOf(item);
+    favoritos.splice(index, 1);
+    window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
+    $scope.show = false;
+    console.log("Removi artigo", favoritos);
   };
-  
-// mostra os detalhes das analises
-  $scope.Mostra = function(show){
-    $scope.show = !show;
-  }
+
+
 
 // atualiza os dados no tab favoritos
 $scope.doRefresh = function() {
@@ -211,12 +206,12 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $rootScope, $state, $stateParams, $ionicPopup, Api) {
 
-  // Limpa o imput da pagina 
+// Limpa o imput da pagina 
   $scope.apagar = function () {
     $scope.search = '';
   }
   
-//Seleiona o layout a mostrar na pagina detalhes  
+//Seleciona o layout a mostrar na pagina detalhes  
   if ($scope.show == true) {
   //passa informação para a pagina com id
   Api.getGruposDet().then(function(data) {
@@ -226,15 +221,29 @@ function ($scope, $rootScope, $state, $stateParams, $ionicPopup, Api) {
   }else{
   //passa informação para a pagina com id
   Api.getAnalisesDet().then(function(data) {
-      $scope.analises = data.analiseDet;
+      $scope.analises = data.analiseDet; 
     });
     $scope.title ='Analise Clinica';
   }
+ 
 
 // adiciona e remove favoritos no ficheiro JSON-Favoritos
 $scope.GuardaFavorito = function(analises) {
+  
   var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
-  if (!analises.added) {
+
+  var found = false;
+    for(var i = 0; i < favoritos.length; i++) {
+      if (favoritos[i].codigo == analises.codigo) {
+          found = true; 
+          console.log('Found ' + found);
+          break;
+          }
+          console.log('Found ' + found);
+        }
+      
+ 
+  if (!analises.added && found == false) {
     favoritos.push(analises);
     window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
     console.log("Adicionei artigo", analises);
@@ -245,6 +254,7 @@ $scope.GuardaFavorito = function(analises) {
     console.log("Removi artigo", favoritos);
   }
   analises.added = !analises.added;
+
 }
 
 // passa id da analise para a Api e retorna pagina detalhes
@@ -253,24 +263,22 @@ $scope.GuardaFavorito = function(analises) {
     $scope.show = false;
     Api.getAnalisesDet().then(function(data) {
       $scope.analises = data.analiseDet;
-    });
+      var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
+      var found = false;
+        for(var i = 0; i < favoritos.length; i++) {
+        if (favoritos[i].codigo == $scope.analises.codigo) {
+            found = true; 
+            $scope.favicon = found;
+            console.log('Found ' + found);
+            break;
+          }
+          $scope.favicon = found;
+          console.log('Found ' + found);
+        }
+      });
       $scope.title ='Analise Clinica';
       $state.go('page1.detalhes');
     }
-
-
-  $scope.varFav = function(){
-    var found = false;
-    for(var i = 0; i < favoritos.length; i++) {
-      if (favoritos[i].codigo == $scope.analises) {
-        found = true;
-        !analises.added
-        //$ionicPopup.alert({ title: 'Erro!!!', template: 'Esta Analise já foi adicionada'});
-        break;
-      }
-    }
-    console.log('teste ' + found);
-  }
 
 }])
 

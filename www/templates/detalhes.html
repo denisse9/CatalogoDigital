@@ -23,15 +23,17 @@
       </div>
   </div>
 
-    <div class="card" padding="true" ng-hide="show" ng-class="verFav()">
+    <div class="card" padding="true" ng-hide="show">
       <div class="item item-icon-right item-text-wrap">
-        <i class="calm" ng-class="!analises.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star energized'" ng-click="GuardaFavorito(analises)"></i>       
+        <!--i class="calm" id="icon" ng-class="!analises.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star energized'" ng-click="GuardaFavorito(analises)" icon-switcher></i-->
+        <i class="calm" ng-if="favicon != true" ng-class="!analises.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star energized'" ng-click="GuardaFavorito(analises)"></i>
+        <i class="calm" ng-if="favicon == true" ng-class="analises.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star  energized'" ng-click="GuardaFavorito(analises)"></i>
           <span class="badge badge-balanced">{{analises.codigo}}</span>
            <h2 class="calm">{{analises.designacao}}</h2>
             <h3>{{analises.grupo}}</h3>
-            <p>{{analises.instrucaoColheita}}</p>
-            <p>{{analises.instrucaoPreparacao}}</p>
-            <p>{{analises.manualcolheitaDesignacao}}</p>
+            <p>{{analises.instrucaoColheita | limitTo: 100}}</p>
+            <p>{{analises.instrucaoPreparacao | limitTo: 100}}</p>
+            <p>{{analises.manualcolheitaDesignacao | limitTo: 100}}</p>
             <p>{{analises.produtoColher}}</p>
             <p>{{analises.tempoExecucao}}</p>
             <p>{{analises.qtColher}}</p>
