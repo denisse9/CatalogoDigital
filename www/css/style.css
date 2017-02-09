@@ -1,4 +1,15 @@
 
+/* Mapa do centro de colheita  */
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.scroll {
+  height: 100%;
+}
+
+/* alteraçoes do paragrafo  */
 p {
     display: block;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
