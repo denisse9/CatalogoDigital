@@ -2,10 +2,7 @@
 
 <ion-content padding="true" class="has-header">
 
-  <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
-  </ion-refresher>
-
-  <div class="teste" ng-hide="(progressval == 100)">
+  <div class="calm" ng-hide="(progressval == 100)">
     <progress id="progressbar" value="{{ progressval }}" max="100"></progress>
   </div>
 
