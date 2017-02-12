@@ -15,11 +15,12 @@
 
   <div class="list" ng-hide="!show">
      <ion-item class="item item-divider" align="center">
-        <h3 class="balanced">{{grupo}}</h3>  
+        <h3 class="positive">{{grupo}}</h3>  
     </ion-item>
-      <div class="item item-icon-right item-text-wrap" ng-repeat="item in grupos | orderBy:'designacao' | filter: {$:search} " ng-click="PassaId2(item.numanalise)">
-        <h3>{{item.designacao}}</h3><span class="balanced">Código Analise : </span>{{item.codigo}}
-        <i class="icon ion-android-arrow-dropright energized"></i> 
+      <div class="item item-icon-right item-text-wrap" ng-repeat="item in grupos | orderBy:'designacao' | filter: {designacao:search} " ng-click="PassaId2(item.numanalise)">
+        <h3>{{item.designacao}}</h3>
+        <i class="icon ion-android-arrow-dropright energized"></i>
+        <span class="badge positive">{{item.codigo}}</span>
       </div>
   </div>
 
@@ -28,7 +29,7 @@
         <!--i class="calm" id="icon" ng-class="!analises.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star energized'" ng-click="GuardaFavorito(analises)" icon-switcher></i-->
         <i class="calm" ng-if="favicon != true" ng-class="!analises.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star energized'" ng-click="GuardaFavorito(analises)"></i>
         <i class="calm" ng-if="favicon == true" ng-class="analises.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star  energized'" ng-click="GuardaFavorito(analises)"></i> 
-          <span class="badge badge-balanced">{{analises.codigo}}</span>
+          <span class="badge badge-positive">{{analises.codigo}}</span>
            <h2 class="calm">{{analises.designacao}}</h2>
             <h3>{{analises.grupo}}</h3>
             <p>{{analises.instrucaoColheita}}</p>

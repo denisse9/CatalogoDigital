@@ -13,10 +13,15 @@ function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionic
   $scope.apagar = function () {
     $scope.search ='';
     $scope.show = true;
+  $ionicScrollDelegate.scrollTop();
 }
 
 //verifica se ouve alterações no imput
   $scope.onSearchChange = function () {
+    // passa informação das analises para o pagina 
+  Api.getAnalises().then(function(data){
+    $scope.analises = data.dataAnalises;
+  })
     $scope.show = false;
   }
 
@@ -27,10 +32,6 @@ function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionic
     console.log("Informação da Api...");
   })
 
-// passa informação das analises para o pagina 
-  Api.getAnalises().then(function(data){
-    $scope.analises = data.dataAnalises;
-  })
 
 // passa id para a Api e muda para pagina detalhes
   $scope.PassaId = function(id){
@@ -303,6 +304,7 @@ function ($scope, $rootScope, $state, $stateParams, $ionicPopup, $ionicScrollDel
   // Limpa o imput da pagina 
   $scope.apagar = function () {
     $scope.search = '';
+    $ionicScrollDelegate.scrollTop();
   }
   
 //Seleciona o layout a mostrar na pagina detalhes  

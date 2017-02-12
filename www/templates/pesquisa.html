@@ -31,12 +31,12 @@
 </ion-list>
 
 <ion-item class="item item-divider" align="center" ng-show="!show">
-    <h3 class="balanced">Analises Clínicas</h3>   
+    <h3 class="positive">Analises Clínicas</h3>   
   </ion-item>
   
 <div class="list" ng-show="!show">
       <div class="item item-icon-right item-text-wrap" ng-repeat="item in analises | orderBy: 'designacao' | filter: {designacao:search}" ng-click="PassaId2(item.numanalise)">
-       <h3>{{item.designacao}}</h3><span class="balanced">{{item.codigo}}</span>
+       <h3>{{item.designacao}}</h3><span class="positive">{{item.codigo}}</span>
        <i class="icon ion-android-arrow-dropright energized"></i> 
       </div>
     </div>

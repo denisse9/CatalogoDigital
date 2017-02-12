@@ -69,6 +69,7 @@ progress {
   border: 0;
   height: 8px;
 }
+
 progress::-webkit-progress-bar {
   background-color: #e0e0e0;
   border-radius: 4px;
@@ -76,13 +77,13 @@ progress::-webkit-progress-bar {
   height: 8px;
 }
 progress::-webkit-progress-value {
-  background: #1EA9A7;
+  background: #367aa5;
   border-radius: 4px;
   border: 0;
   height: 8px;
 }
 progress::-moz-progress-bar {
-  background-color: #1EA9A7;
+  background-color: #367aa5;
   border-radius: 4px;
   border: 0;
   height: 8px;
@@ -95,7 +96,7 @@ progress::-moz-progress-bar {
   font-size: .8em;
   font-weight: 600;
   font-family: "Open Sans";
-  color: #1EA9A7;
+  color: #367aa5;
   height: 18px;
   float: right;
 }
@@ -110,6 +111,7 @@ progress::-moz-progress-bar {
 .popup-buttons .button:last-child{
 		background-color:  #367aa5;
 }
+
 /* CSS for spinner*/
 .spinner svg {
   width: 28px;
@@ -186,8 +188,8 @@ progress::-moz-progress-bar {
 	width: 41px;
 	position: absolute;
 	border-radius: 100px 0 0 0;
-   	-moz-border-radius: 100px 0 0 0;
-     	-webkit-border-radius: 100px 0 0 0;
+  -moz-border-radius: 100px 0 0 0;
+  -webkit-border-radius: 100px 0 0 0;
 	-webkit-animation: quarter linear 1s infinite;
 	animation: quarter linear 1s infinite;
 }
