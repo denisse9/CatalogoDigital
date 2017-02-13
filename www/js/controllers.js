@@ -5,23 +5,29 @@ angular.module('app.controllers', [])
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $ionicScrollDelegate, $rootScope, $stateParams, $state, $ionicPopup, Api) {
 
+  // depois de entrar carrega analises
+$scope.$on("$ionicView.afterEnter", function(){
+// passa informação das analises para o pagina 
+  Api.getAnalises().then(function(data){
+    $scope.analises = data.dataAnalises;
+  })
+});
+
+
 // define que no inicio o vai mostrar o layout dos grupos
   $scope.show = true;
 
-
 //Limpa o imput
-  $scope.apagar = function () {
+$scope.apagar = function () {
     $scope.search ='';
     $scope.show = true;
   $ionicScrollDelegate.scrollTop();
 }
 
-//verifica se ouve alterações no imput
+//verifica se ouve alterações no imput e pesquisa as analises
   $scope.onSearchChange = function () {
-    // passa informação das analises para o pagina 
-  Api.getAnalises().then(function(data){
-    $scope.analises = data.dataAnalises;
-  })
+    var analises = JSON.parse(window.localStorage.getItem('dataAnalises'));
+    $scope.analises = analises.dataAnalises;
     $scope.show = false;
   }
 
