@@ -1,17 +1,7 @@
 <ion-view title="Favoritos" id="page3" cache-view="false">
 
-  <div class="bar bar-subheader">
-    <div class="buttons">
-      </div>
-      <h1 class="title"></h1>
-      <div class="buttons">
-        <h5 class="stable"> Atualizar</h5>
-        <button class="button button-icon icon ion-refresh energized" ng-click="doRefresh()"></button>
-      </div>
-    </div>
-  
 
-<ion-content padding="true" class="has-subheader" scroll-sista="header-tabs" overflow-scroll="false">
+<ion-content padding="true" scroll-sista="header-tabs" overflow-scroll="false">
    
   <div ui-state="activeTab" class="card" default="1" ng-repeat="item in favoritos">
   <ul class="nav nav-tabs">
@@ -34,7 +24,7 @@
     <h3 class="page-header calm">{{item.designacao}}</h3>
     <h4>Código : <span class="calm">{{item.codigo}}</span></h4>
     <h4>Grupo : <span class="calm">{{item.grupo}}</span></h4>
-    <i class="calm" id="icon" ng-class="analises.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star energized'" ng-click="GuardaFavorito(analises)"></i>
+    <i class="calm" id="icon" ng-class="item.added ? 'icon ion-ios-star-outline' : 'icon ion-ios-star energized'" ng-click="GuardaFavorito(item)"></i>
   </div>
 
   <div ui-if="activeTab == 2" class="item item-body item-divider">
@@ -47,7 +37,7 @@
    </pre>
   </div>
 
-  <div ui-if="activeTab == 4" class="item item-divider">
+  <div ui-if="activeTab == 4" class="item item-divider" >
     <h4>Produto : <span class="calm">{{item.produtoColher}}</span></h4>   
     <h4>Tempo : <span class="calm">{{item.tempoExecucao}}</span></h4>
     <h4>Colher : <span class="calm">{{item.qtColher}}</span></h4>

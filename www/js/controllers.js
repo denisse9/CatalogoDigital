@@ -218,22 +218,25 @@ if (fav.length == 0) {
 
 
 // adiciona e remove favoritos no ficheiro JSON-Favoritos
-$scope.GuardaFavorito = function(analises) {
+$scope.GuardaFavorito = function(item) {
   
   var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
       
 //adiciona ou remove favorito  
-  if (!analises.added) {
-    var index = favoritos.indexOf(analises);
+  if (!item.added) {
+   $scope.favoritos.splice($scope.favoritos.indexOf(item), 1);
+    var favoritos = JSON.parse(window.localStorage.getItem("favoritos")) || [];
+    var index = favoritos.indexOf(item);
     favoritos.splice(index, 1);
     window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
+    $scope.show = false;
     console.log("Removi artigo", favoritos);
   } else {
-    favoritos.push(analises);
+    favoritos.push(item);
     window.localStorage.setItem("favoritos", JSON.stringify(favoritos));
-    console.log("Adicionei artigo", analises);
+    console.log("Adicionei artigo", item);
   }
-  analises.added = !analises.added;
+  item.added = !item.added;
 }
 
 
